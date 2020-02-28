@@ -1,0 +1,10 @@
+example.com
+
+encode zstd gzip
+file_server {
+    root /var/www
+}
+
+reverse_proxy /wspath_placeholder :3375 {
+    header_up X-Forwarded-For {remote_host}
+}
