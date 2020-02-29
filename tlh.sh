@@ -11,5 +11,8 @@ for file_name in Caddyfile v2ray_service.json v2ray_client_template.json;
   done
 
 sudo podman pod create --name=tlh -p 80 -p 443
-sudo podman run -d --name=caddy --pod=tlh -v ./current/Caddyfile:/etc/caddy/Caddyfile:Z -v ./www:/var/www:Z -v ./current/caddy:/root/.local/share/caddy:Z caddy/caddy:alpine
-sudo podman run -d --name=v2ray --pod=tlh -v ./current/v2ray_service.json:/etc/v2ray/config.json:Z v2fly/v2fly-core
+sudo podman create --name=caddy --pod=tlh -v ./current/Caddyfile:/etc/caddy/Caddyfile:Z -v ./www:/var/www:Z -v ./current/caddy:/root/.local/share/caddy:Z caddy/caddy:alpine
+sudo podman create --name=v2ray --pod=tlh -v ./current/v2ray_service.json:/etc/v2ray/config.json:Z v2fly/v2fly-core
+
+sudo cp tlh.service /etc/systemd/system/
+sudo systemctl enable --now tlh

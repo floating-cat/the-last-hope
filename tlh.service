@@ -1,0 +1,11 @@
+[Unit]
+Description=The Last Hope pod
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/podman pod start tlh
+ExecStop=/usr/bin/podman pod stop tlh
+
+[Install]
+WantedBy=multi-user.target

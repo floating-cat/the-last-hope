@@ -16,7 +16,7 @@ The title is a lie.
   sudo firewall-cmd --reload
   ```
 
-* Install [Podman](https://podman.io/) on your server.
+* Use systemd and install [Podman](https://podman.io/) on your server.
 
 ### Using
 
@@ -27,6 +27,20 @@ The title is a lie.
 3. Run `./tlh.sh` from the terminal and follow the prompt to enter your domain.
 
 5. Using `cat current/v2ray_client_template.json` to see the client-side configuration template.
+
+### Usage
+
+Stop the last hope:
+
+```bash
+sudo systemctl stop tlh
+```
+
+Uninstall the last hope:
+
+```bash
+./tlh_uninstall.sh
+```
 
 ## TODO
 
