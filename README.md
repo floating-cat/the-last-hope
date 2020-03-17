@@ -41,8 +41,3 @@ Uninstall the last hope:
 ```bash
 ./tlh_uninstall.sh
 ```
-
-## TODO
-
-- [ ] Support Docker.
-- [ ] Generate the VMess links and QR code.
