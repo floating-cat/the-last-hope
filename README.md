@@ -30,6 +30,12 @@ The title is a lie.
 
 ### Usage
 
+Update the last hope (containers):
+
+```bash
+sudo podman auto-update
+```
+
 Stop the last hope:
 
 ```bash
