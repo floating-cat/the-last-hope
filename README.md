@@ -33,7 +33,7 @@ The title is a lie.
 Stop the last hope:
 
 ```bash
-sudo systemctl stop tlh
+sudo systemctl stop pod-tlh
 ```
 
 Uninstall the last hope:

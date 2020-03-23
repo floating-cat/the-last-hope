@@ -1,5 +1,5 @@
 #!/bin/sh
 
-sudo systemctl disable --now tlh
-sudo rm /etc/systemd/system/tlh.service
+sudo systemctl disable --now pod-tlh
+sudo rm /etc/systemd/system/{pod-tlh,container-caddy,container-v2ray}.service
 sudo podman pod rm tlh
