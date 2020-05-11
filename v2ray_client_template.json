@@ -1,29 +1,28 @@
 {
-    "outbounds":[
-       {
-          "protocol":"vmess",
-          "settings":{
-             "vnext":[
-                {
-                   "address":"example.com",
-                   "port":443,
-                   "users":[
-                      {
-                         "alterId":64,
-                         "id":"v2ray_id_placeholder"
-                      }
-                   ]
-                }
-             ]
-          },
-          "streamSettings":{
-             "network":"ws",
-             "security":"tls",
-             "wsSettings":{
-                "path":"/wspath_placeholder"
-             }
+  "outbounds": [
+    {
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "example.com",
+            "port": 443,
+            "users": [
+              {
+                "alterId": 64,
+                "id": "v2ray_id_placeholder"
+              }
+            ]
           }
-       }
-    ]
- }
- 
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "wsSettings": {
+          "path": "/wspath_placeholder"
+        }
+      }
+    }
+  ]
+}
