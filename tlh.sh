@@ -5,10 +5,9 @@ read -p "Please enter your domain: " domain
 wspath=$(uuidgen)
 v2ray_id=$(uuidgen)
 mkdir -p current/caddy_data_directory
-for file_name in Caddyfile v2ray_service.json v2ray_client_template.json;
-  do
-    sed "s/example.com/$domain/g; s/wspath_placeholder/$wspath/g; s/v2ray_id_placeholder/$v2ray_id/g" "$file_name" > "current/$file_name"
-  done
+for file_name in Caddyfile v2ray_service.json v2ray_client_template.json; do
+  sed "s/example.com/$domain/g; s/wspath_placeholder/$wspath/g; s/v2ray_id_placeholder/$v2ray_id/g" "$file_name" >"current/$file_name"
+done
 
 cp -r www current/
 cd current
