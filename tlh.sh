@@ -12,8 +12,8 @@ done
 cp -r www current/
 cd current
 sudo podman pod create --name=tlh -p 80 -p 443
-sudo podman create --name=caddy --pod=tlh -v ./Caddyfile:/etc/caddy/Caddyfile:Z -v ./www:/var/www:Z -v ./caddy_data_directory:/root/.local/share/caddy:Z --label io.containers.autoupdate=image --label PODMAN_SYSTEMD_UNIT=container-caddy caddy/caddy:alpine
-sudo podman create --name=v2ray --pod=tlh -v ./v2ray_service.json:/etc/v2ray/config.json:Z --label io.containers.autoupdate=image --label PODMAN_SYSTEMD_UNIT=container-v2ray v2fly/v2fly-core:latest
+sudo podman create --name=caddy --pod=tlh -v ./Caddyfile:/etc/caddy/Caddyfile:Z -v ./www:/var/www:Z -v ./caddy_data_directory:/root/.local/share/caddy:Z caddy/caddy:alpine
+sudo podman create --name=v2ray --pod=tlh -v ./v2ray_service.json:/etc/v2ray/config.json:Z v2fly/v2fly-core:latest
 
 sudo podman generate systemd --files --name tlh
 sudo cp {pod-tlh,container-caddy,container-v2ray}.service /etc/systemd/system/
