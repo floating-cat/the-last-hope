@@ -14,7 +14,7 @@
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/wspath_placeholder"
+          "path": "/v2ray_wspath_placeholder"
         }
       }
     }

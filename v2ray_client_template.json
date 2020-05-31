@@ -5,7 +5,7 @@
       "settings": {
         "vnext": [
           {
-            "address": "example.com",
+            "address": "domain_placeholder",
             "port": 443,
             "users": [
               {
@@ -19,7 +19,7 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/wspath_placeholder"
+          "path": "/v2ray_wspath_placeholder"
         }
       }
     }
