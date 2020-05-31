@@ -11,11 +11,11 @@ if [ ! -d current ]; then
   v2ray_id=$(uuidgen)
   mkdir -p current/caddy_data_directory
   for file_name in Caddyfile server.conf client.conf v2ray_service.json v2ray_client_template.json; do
-    sed "s/domain_placeholder/$domain/g; \
-    s/star_link_wspath_placeholder/$star_link_wspath/g; \
-    s/star_link_password_placeholder/$star_link_password/g; \
-    s/v2ray_wspath_placeholder/$v2ray_wspath/g; \
-    s/v2ray_id_placeholder/$v2ray_id/g" \
+    sed -e "s/domain_placeholder/$domain/g" \
+      -e "s/star_link_wspath_placeholder/$star_link_wspath/g" \
+      -e "s/star_link_password_placeholder/$star_link_password/g" \
+      -e "s/v2ray_wspath_placeholder/$v2ray_wspath/g" \
+      -e "s/v2ray_id_placeholder/$v2ray_id/g" \
       "$file_name" >"current/$file_name"
   done
 
