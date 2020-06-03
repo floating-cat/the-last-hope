@@ -5,8 +5,6 @@ file_server {
     root /var/www
 }
 
-reverse_proxy /v2ray_wspath_placeholder :3375 {
-    header_up X-Forwarded-For {remote_host}
-}
+reverse_proxy /v2ray_wspath_placeholder :3375
 
 reverse_proxy /star_link_wspath_placeholder [::1]:3614
