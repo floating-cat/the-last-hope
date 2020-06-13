@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ ! -d current ]; then
+setupConfigurations() {
   read -p "Please enter your domain: " domain
 
   star_link_password=$(openssl rand -hex 16)
@@ -18,9 +18,17 @@ if [ ! -d current ]; then
       -e "s/v2ray_id_placeholder/$v2ray_id/g" \
       "$file_name" >"current/$file_name"
   done
+}
 
+if [ ! -d current ]; then
+  setupConfigurations
 else
-  echo "\`current\` directory exists. Skip to create relevant configuration files."
+  read -p "Do you want to reset the old configuration files? [y/N] " yN
+  yN=${yN,,} # to lowercase
+
+  if [[ "$yN" =~ ^(y|yes)$ ]]; then
+    setupConfigurations
+  fi
 fi
 
 cp -r www current/
