@@ -34,11 +34,12 @@ fi
 
 cp -r www current/
 cd current
+pwd=`pwd`
 sudo podman pod create --name=tlh -p 80 -p 443
-sudo podman create --name=caddy --pod=tlh -v ./Caddyfile:/etc/caddy/Caddyfile:Z -v ./www:/var/www:Z -v ./caddy_data_directory:/root/.local/share/caddy:Z caddy:latest
-sudo podman create --name=star-link --pod=tlh -v ./server.conf:/etc/star-link/server.conf:Z aasterism/star-link:latest
-sudo podman create --name=v2ray --pod=tlh -v ./v2ray_service.json:/etc/v2ray/config.json:Z v2fly/v2fly-core:latest
+sudo podman create --name=caddy --pod=tlh -v $pwd/Caddyfile:/etc/caddy/Caddyfile:Z -v $pwd/www:/var/www:Z -v $pwd/caddy_data_directory:/root/.local/share/caddy:Z --label io.containers.autoupdate=image caddy:latest
+sudo podman create --name=star-link --pod=tlh -v $pwd/server.conf:/etc/star-link/server.conf:Z --label io.containers.autoupdate=image aasterism/star-link:latest
+sudo podman create --name=v2ray --pod=tlh -v $pwd/v2ray_service.json:/etc/v2ray/config.json:Z --label io.containers.autoupdate=image v2fly/v2fly-core:latest
 
-sudo podman generate systemd --files --name tlh
+sudo podman generate systemd --new --files --name tlh
 sudo cp {pod-tlh,container-star-link,container-caddy,container-v2ray}.service /etc/systemd/system/
 sudo systemctl enable --now pod-tlh
