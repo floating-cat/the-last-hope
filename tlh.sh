@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 setupConfigurations() {
-  read -p "Please enter your domain: " domain
-  read -p "Please enter your email for ACME (press Enter to skip): " email
+  read -r -p "Please enter your domain: " domain
+  read -r -p "Please enter your email for ACME (press Enter to skip): " email
 
   star_link_password=$(openssl rand -hex 16)
   # https://superuser.com/a/416630
@@ -21,7 +21,7 @@ setupConfigurations() {
       $file_name >current/$file_name
   done
 
-  if [ ! -z "${email}" ]; then
+  if [ -n "${email}" ]; then
     sed -i "1s/^/{\n    email $email\n}\n\n/" current/Caddyfile
   fi
 }
@@ -29,7 +29,7 @@ setupConfigurations() {
 if [ ! -d current ]; then
   setupConfigurations
 else
-  read -p "Do you want to reset the old configuration files? [y/N] " yN
+  read -r -p "Do you want to reset the old configuration files? [y/N] " yN
   yN=${yN,,} # to lowercase
 
   if [[ "$yN" =~ ^(y|yes)$ ]]; then
@@ -38,11 +38,11 @@ else
 fi
 
 cp -r www current/
-cd current
+cd current || exit 1
 sudo podman pod create --name tlh -p 80 -p 443
-sudo podman create --name caddy --pod tlh -v $PWD/Caddyfile:/etc/caddy/Caddyfile:Z -v $PWD/www:/var/www:Z -v $PWD/caddy_data_directory:/root/.local/share/caddy:Z --label io.containers.autoupdate=image caddy:latest
-sudo podman create --name star-link --pod tlh -v $PWD/server.conf:/etc/star-link/server.conf:Z --label io.containers.autoupdate=image aasterism/star-link:latest
-sudo podman create --name v2ray --pod tlh -v $PWD/v2ray_service.json:/etc/v2ray/config.json:Z --label io.containers.autoupdate=image v2fly/v2fly-core:latest
+sudo podman create --name caddy --pod tlh -v "$PWD"/Caddyfile:/etc/caddy/Caddyfile:Z -v "$PWD"/www:/var/www:Z -v "$PWD"/caddy_data_directory:/root/.local/share/caddy:Z --label io.containers.autoupdate=image caddy:latest
+sudo podman create --name star-link --pod tlh -v "$PWD"/server.conf:/etc/star-link/server.conf:Z --label io.containers.autoupdate=image aasterism/star-link:latest
+sudo podman create --name v2ray --pod tlh -v "$PWD"/v2ray_service.json:/etc/v2ray/config.json:Z --label io.containers.autoupdate=image v2fly/v2fly-core:latest
 
 sudo podman generate systemd --new --files --name tlh
 sudo podman pod rm tlh
