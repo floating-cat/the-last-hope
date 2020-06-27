@@ -4,7 +4,6 @@ set -e
 
 setupConfigurations() {
   read -r -p "Please enter your domain: " domain
-  read -r -p "Please enter your email for ACME (press Enter to skip): " email
 
   star_link_password=$(openssl rand -hex 16)
   # https://superuser.com/a/416630
@@ -22,10 +21,6 @@ setupConfigurations() {
     s/v2ray_id_placeholder/$v2ray_id/g" \
       $file_name >current/$file_name
   done
-
-  if [ -n "${email}" ]; then
-    sed -i "1s/^/{\n    email $email\n}\n\n/" current/Caddyfile
-  fi
 }
 
 if [ ! -d current ]; then
