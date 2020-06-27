@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 setupConfigurations() {
   read -r -p "Please enter your domain: " domain
   read -r -p "Please enter your email for ACME (press Enter to skip): " email
