@@ -42,9 +42,9 @@ fi
 cp -r www current/
 cd current || exit 1
 sudo podman pod create --name tlh -p 80 -p 443
-sudo podman create --name caddy --pod tlh -v "$PWD"/Caddyfile:/etc/caddy/Caddyfile:Z -v "$PWD"/www:/var/www:Z -v "$PWD"/caddy_data_directory:/root/.local/share/caddy:Z --label io.containers.autoupdate=image caddy:latest
-sudo podman create --name star-link --pod tlh -v "$PWD"/server.conf:/etc/star-link/server.conf:Z --label io.containers.autoupdate=image aasterism/star-link:latest
-sudo podman create --name v2ray --pod tlh -v "$PWD"/v2ray_service.json:/etc/v2ray/config.json:Z --label io.containers.autoupdate=image v2fly/v2fly-core:latest
+sudo podman create --name caddy --pod tlh -v "$PWD"/Caddyfile:/etc/caddy/Caddyfile:Z -v "$PWD"/www:/var/www:Z -v "$PWD"/caddy_data_directory:/root/.local/share/caddy:Z --label io.containers.autoupdate=image docker.io/caddy:latest
+sudo podman create --name star-link --pod tlh -v "$PWD"/server.conf:/etc/star-link/server.conf:Z --label io.containers.autoupdate=image docker.io/aasterism/star-link:latest
+sudo podman create --name v2ray --pod tlh -v "$PWD"/v2ray_service.json:/etc/v2ray/config.json:Z --label io.containers.autoupdate=image docker.io/v2fly/v2fly-core:latest
 
 sudo podman generate systemd --new --files --name tlh
 sudo podman pod rm tlh
