@@ -16,7 +16,7 @@ The title is a lie.
   sudo firewall-cmd --reload
   ```
 
-* Use systemd and make sure that [podman](https://podman.io/getting-started/installation.html) (at least 2.1.0 version), xxd, uuidgen and openssl are installed on your server.
+* Use systemd and make sure that [podman](https://podman.io/getting-started/installation.html) (2.0.1 version at least), xxd, uuidgen and openssl are installed on your server.
 
   You could use `sudo dnf install -y vim-common` or `sudo apt-get install -y xxd` to install xxd for Fedora or Ubuntu. 
 
