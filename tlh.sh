@@ -11,7 +11,7 @@ setupConfigurations() {
 
   v2ray_wspath=$(uuidgen)
   v2ray_id=$(uuidgen)
-  mkdir -p current/caddy_config_directory current/caddy_data_directory
+  mkdir -p current/caddy_data_directory
   for file_name in Caddyfile server.conf client.conf v2ray_service.json v2ray_client_template.json; do
     # https://unix.stackexchange.com/q/211834
     sed "s/domain_placeholder/$domain/g; \
@@ -37,7 +37,7 @@ fi
 cp -r www current/
 cd current || exit 1
 sudo podman pod create --name tlh -p 80 -p 443
-sudo podman create --name caddy --pod tlh -v "$PWD"/Caddyfile:/etc/caddy/Caddyfile:Z -v "$PWD"/www:/var/www:Z -v "$PWD"/caddy_config_directory:/root/.config/caddy:Z -v "$PWD"/caddy_data_directory:/root/.local/share/caddy:Z --label io.containers.autoupdate=image docker.io/caddy:latest
+sudo podman create --name caddy --pod tlh -v "$PWD"/Caddyfile:/etc/caddy/Caddyfile:Z -v "$PWD"/www:/var/www:Z -v "$PWD"/caddy_data_directory:/root/.local/share/caddy:Z --label io.containers.autoupdate=image docker.io/caddy:latest
 sudo podman create --name star-link --pod tlh -v "$PWD"/server.conf:/etc/star-link/server.conf:Z --label io.containers.autoupdate=image docker.io/aasterism/star-link:latest
 sudo podman create --name v2ray --pod tlh -v "$PWD"/v2ray_service.json:/etc/v2ray/config.json:Z --label io.containers.autoupdate=image docker.io/v2fly/v2fly-core:latest
 
