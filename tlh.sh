@@ -16,7 +16,7 @@ setupConfigurations() {
     # https://unix.stackexchange.com/q/211834
     sed "s/domain_placeholder/$domain/g; \
     s,star_link_wspath_placeholder,$star_link_wspath,g; \
-    s/star_link_pas--label io.containers.autoupdate=imagesword_placeholder/$star_link_password/g; \
+    s/star_link_password_placeholder/$star_link_password/g; \
     s/v2ray_wspath_placeholder/$v2ray_wspath/g; \
     s/v2ray_id_placeholder/$v2ray_id/g" \
       $file_name >current/$file_name
