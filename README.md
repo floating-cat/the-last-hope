@@ -35,7 +35,11 @@ The title is a lie.
 Update the last hope (containers):
 
 ```bash
+// update manually
 sudo podman auto-update
+
+// or update automatically
+sudo systemctl enable --now podman-auto-update.timer
 ```
 
 Stop the last hope:
