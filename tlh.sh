@@ -1,6 +1,8 @@
 #!/bin/bash
 
 set -e
+# https://stackoverflow.com/q/32145643
+trap "exit" INT
 
 setupConfigurations() {
   mkdir -p current/caddy_data_directory
