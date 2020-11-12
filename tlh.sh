@@ -4,6 +4,9 @@ set -e
 
 setupConfigurations() {
   mkdir -p current/caddy_data_directory
+  rm -rf current/www
+  cp -r www current/
+
   if [ ! -f current/config.prop ]; then
     read -r -p "Please enter your domain: " domain
 
@@ -42,7 +45,6 @@ else
   fi
 fi
 
-cp -r www current/
 cd current || exit 1
 sudo podman pod create --name tlh -p 80 -p 443
 sudo podman create --name caddy --pod tlh -v "$PWD"/Caddyfile:/etc/caddy/Caddyfile:Z -v "$PWD"/www:/var/www:Z -v "$PWD"/caddy_data_directory:/data:Z --label io.containers.autoupdate=image docker.io/caddy:latest
