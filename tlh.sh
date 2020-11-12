@@ -8,28 +8,25 @@ setupConfigurations() {
     read -r -p "Please enter your domain: " domain
 
     star_link_password=$(openssl rand -hex 16)
-    # https://superuser.com/a/416630
-    star_link_wspath=$(echo "$star_link_password" | xxd -r -p | base64)
-
-    v2ray_wspath=$(uuidgen)
-    v2ray_id=$(uuidgen)
+    v2ray_password=$(uuidgen)
 
     echo "domain=$domain
-star_link_wspath=$star_link_wspath
 star_link_password=$star_link_password
-v2ray_wspath=$v2ray_wspath
-v2ray_id=$v2ray_id" >> current/config.prop
+v2ray_password=$v2ray_password" >> current/config.prop
   else
     . current/config.prop
   fi
+
+  # https://superuser.com/a/416630
+  star_link_wspath=$(echo "$star_link_password" | xxd -r -p | base64)
 
   for file_name in Caddyfile server.conf client.conf v2ray_service.json v2ray_client_template.json; do
     # https://unix.stackexchange.com/q/211834
     sed "s/domain_placeholder/$domain/g; \
     s,star_link_wspath_placeholder,$star_link_wspath,g; \
     s/star_link_password_placeholder/$star_link_password/g; \
-    s/v2ray_wspath_placeholder/$v2ray_wspath/g; \
-    s/v2ray_id_placeholder/$v2ray_id/g" \
+    s/v2ray_wspath_placeholder/$v2ray_password/g; \
+    s/v2ray_id_placeholder/$v2ray_password/g" \
       $file_name >current/$file_name
   done
 }
