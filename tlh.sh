@@ -31,7 +31,7 @@ v2ray_password=$v2ray_password" >> current/config.prop
   done
 }
 
-if [ ! -d current ]; then
+if [ ! -f current/config.prop ]; then
   setupConfigurations
 else
   read -r -p "Do you want to regenerate the configuration files? [y/N] " yN
