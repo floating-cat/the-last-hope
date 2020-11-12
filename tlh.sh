@@ -3,15 +3,26 @@
 set -e
 
 setupConfigurations() {
-  read -r -p "Please enter your domain: " domain
-
-  star_link_password=$(openssl rand -hex 16)
-  # https://superuser.com/a/416630
-  star_link_wspath=$(echo "$star_link_password" | xxd -r -p | base64)
-
-  v2ray_wspath=$(uuidgen)
-  v2ray_id=$(uuidgen)
   mkdir -p current/caddy_data_directory
+  if [ ! -f current/config.prop ]; then
+    read -r -p "Please enter your domain: " domain
+
+    star_link_password=$(openssl rand -hex 16)
+    # https://superuser.com/a/416630
+    star_link_wspath=$(echo "$star_link_password" | xxd -r -p | base64)
+
+    v2ray_wspath=$(uuidgen)
+    v2ray_id=$(uuidgen)
+
+    echo "domain=$domain
+star_link_wspath=$star_link_wspath
+star_link_password=$star_link_password
+v2ray_wspath=$v2ray_wspath
+v2ray_id=$v2ray_id" >> current/config.prop
+  else
+    . current/config.prop
+  fi
+
   for file_name in Caddyfile server.conf client.conf v2ray_service.json v2ray_client_template.json; do
     # https://unix.stackexchange.com/q/211834
     sed "s/domain_placeholder/$domain/g; \
@@ -26,7 +37,7 @@ setupConfigurations() {
 if [ ! -d current ]; then
   setupConfigurations
 else
-  read -r -p "Do you want to reset the old configuration files? [y/N] " yN
+  read -r -p "Do you want to regenerate the configuration files? [y/N] " yN
   yN=${yN,,} # to lowercase
 
   if [[ "$yN" =~ ^(y|yes)$ ]]; then
