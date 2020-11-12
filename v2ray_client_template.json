@@ -1,7 +1,7 @@
 {
   "outbounds": [
     {
-      "protocol": "vmess",
+      "protocol": "vless",
       "settings": {
         "vnext": [
           {
@@ -9,7 +9,9 @@
             "port": 443,
             "users": [
               {
-                "id": "v2ray_id_placeholder"
+                "id": "v2ray_id_placeholder",
+                "flow": "",
+                "encryption": "none"
               }
             ]
           }
