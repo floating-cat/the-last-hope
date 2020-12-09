@@ -48,7 +48,7 @@ else
 fi
 
 cd current || exit 1
-sudo podman pod create --name tlh -p 80 -p 443
+sudo podman pod create --name tlh -p 80:80 -p 443:443
 sudo podman create --name caddy --pod tlh -v "$PWD"/Caddyfile:/etc/caddy/Caddyfile:Z -v "$PWD"/www:/var/www:Z -v "$PWD"/caddy_data_directory:/data:Z --label io.containers.autoupdate=image docker.io/caddy:latest
 sudo podman create --name star-link --pod tlh -v "$PWD"/server.conf:/etc/star-link/server.conf:Z --label io.containers.autoupdate=image docker.io/aasterism/star-link:latest
 sudo podman create --name v2ray --pod tlh -v "$PWD"/v2ray_service.json:/etc/v2ray/config.json:Z --label io.containers.autoupdate=image docker.io/v2fly/v2fly-core:latest
