@@ -53,7 +53,7 @@ sudo podman create --name caddy --pod tlh -v "$PWD"/Caddyfile:/etc/caddy/Caddyfi
 sudo podman create --name star-link --pod tlh -v "$PWD"/server.conf:/etc/star-link/server.conf:Z --label io.containers.autoupdate=image docker.io/aasterism/star-link:latest
 sudo podman create --name v2ray --pod tlh -v "$PWD"/v2ray_service.json:/etc/v2ray/config.json:Z --label io.containers.autoupdate=image docker.io/v2fly/v2fly-core:latest
 
-sudo podman generate systemd --new --files --name tlh
+sudo podman generate systemd --new --files --restart-policy=on-abnormal --name tlh
 sudo podman pod rm tlh
 sudo cp {pod-tlh,container-star-link,container-caddy,container-v2ray}.service /etc/systemd/system/
 sudo systemctl enable --now pod-tlh
